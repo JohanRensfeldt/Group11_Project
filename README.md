@@ -16,3 +16,4 @@ Group 11 project assignment
 ## Pre-processing(use RC_2011-08 Original size:7.03 GB)
 Drop comments that less than 5 letters
 Drop comments that have been deleted
+Removal of special symbols (keep only the letters of the alphabet)
