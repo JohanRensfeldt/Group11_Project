@@ -1,18 +1,22 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
 
 import pandas as pd
-
-with open('data/RC_2006-01') as f:
+import re
+with open('data/RC_2010-10') as f:
     data = pd.read_json(f, lines=True)
+    
+data = data.drop(data[data['body'] == '[deleted]'].index)
 
+for index, row in data.iterrows():
+    row['body'] = re.sub(r'[^\w\s]', '', row['body'])
 # general pre processing
 
 
-# In[2]:
+# In[ ]:
 
 
 # If youo edit this file, use: jupyter nbconvert --to script Pre_processing.ipynb 
