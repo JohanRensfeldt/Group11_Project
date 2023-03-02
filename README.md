@@ -3,7 +3,6 @@ Group 11 project assignment
 
 
 1. Put Reddit comments data in /data 
-2. Use Pre_processing.ipynb or Pre_processing.py to do gerenal data pre-processing and use ("from Pre_processing import data")
 
 
 ## Column_names of Reddit comments
@@ -11,5 +10,9 @@ Group 11 project assignment
 
 
 ## Task:
-(1) Which keywords can let your comments get a higher score in Reddit?   
-(2) Compared the run time of (1) with and without using pyspark
+(1) Which keywords can let your comments get a higher score in Reddit?(it would run out of menory without using python)
+
+
+## Pre-processing(use RC_2011-08 Original size:7.03 GB)
+Drop comments that less than 5 letters
+Drop comments that have been deleted
