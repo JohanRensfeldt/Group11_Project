@@ -10,7 +10,7 @@ Group 11 project assignment
 
 
 ## Task:
-(1) Which keywords can let your comments get a higher score in Reddit?(it would run out of menory without using python)
+(1) Which keywords can let your comments get a higher score in Reddit?(it would run out of menory without using pyspark)
 
 
 ## Pre-processing(use RC_2011-08 Original size:7.03 GB)
