@@ -1,4 +1,4 @@
-FROM spark-base:1.0.3
+FROM minabadri/spark-cluster-base:latest
 
 ENV MASTER_CONTAINER_NAME=spark-master
 ENV CORES=1

@@ -23,8 +23,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy examples python files into container
-RUN mkdir /home/example
-COPY ./example-files/* /home/example/
+#RUN mkdir /home/example
+#COPY ./example-files/* /home/example/
 
 #Copy Spark Conf File
 COPY ./files/log4j.properties $SPARK_HOME/conf/
