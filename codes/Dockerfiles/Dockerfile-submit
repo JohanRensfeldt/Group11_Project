@@ -1,10 +1,10 @@
-FROM minabadri/spark-cluster-base:latest
+FROM spark-base:1.0.3
 
 # Set default environment variables
 ENV MASTER_CONTAINER_NAME=spark-master
-ENV SPARK_EXECUTOR_MEMORY=2G
-ENV SPARK_EXECUTOR_CORES=1
-ENV SPARK_MASTER_PORT=7077
+ENV SPARK_EXECUTOR_MEMORY=6G
+ENV SPARK_EXECUTOR_CORES=3
+ENV SPARK_MASTER_PORT 7077
 ENV SPARK_MASTER_WEBUI_PORT=8080
 ENV SPARK_WORKER_WEBUI_PORT=8081
 ENV TZ="Europe/Stockholm"
@@ -17,34 +17,18 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y jupyter \
     && pip install pyspark \
-    && pip install --upgrade ipywidgets \
-    && python3 -m spacy download en_core_web_sm \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy examples python files into container
-<<<<<<< HEAD
-#RUN mkdir /home/example
-#COPY ./example-files/* /home/example/
-
-=======
-
-#RUN mkdir /home/example
-#COPY ./example-files/* /home/example/
-
-
->>>>>>> d741b7c8b5edd3221901e9ca616206cc9412d518
-#Copy Spark Conf File
+RUN mkdir /home/example
+COPY ./example-files/* /home/example/
 COPY ./files/log4j.properties $SPARK_HOME/conf/
 COPY ./files/spark-defaults.conf $SPARK_HOME/conf/
 
-# Download jar File For Skark 
-RUN wget https://repo1.maven.org/maven2/org/mongodb/mongo-java-driver/3.12.12/mongo-java-driver-3.12.12.jar /spark/jars
-RUN wget https://repo1.maven.org/maven2/org/mongodb/spark/mongo-spark-connector_2.12/3.0.2/mongo-spark-connector_2.12-3.0.2.jar /spark/jars
-
 # Add Jupyter User
-# RUN useradd -ms /bin/bash jupyter
-# USER jupyter
+RUN useradd -ms /bin/bash jupyter
+USER jupyter
 
 # Set Jupyter Config
 RUN jupyter notebook --generate-config
@@ -52,9 +36,8 @@ RUN echo "c.NotebookApp.allow_origin = '*' #allow all origins" >> ~/.jupyter/jup
     && echo "c.NotebookApp.ip = '0.0.0.0' # listen on all IPs" >> ~/.jupyter/jupyter_notebook_config.py \
     && echo "c.NotebookApp.password = u'sha1:113c79fe798c:8738d114a66bbdb3c607f3a72d69d549d4f3589f'" >> ~/.jupyter/jupyter_notebook_config.py
 
+WORKDIR /home/jupyter
 EXPOSE 4040 4041 8888
-
-WORKDIR /home/
 
 
 

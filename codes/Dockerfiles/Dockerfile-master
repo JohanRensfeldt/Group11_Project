@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 FROM minabadri/spark-cluster-base:latest
 
+=======
+
+FROM minabadri/spark-cluster-base:latest
+
+
+>>>>>>> d741b7c8b5edd3221901e9ca616206cc9412d518
 ENV SPARK_MASTER_PORT=7077
 ENV SPARK_MASTER_WEBUI_PORT=8080
 ENV SPARK_MASTER_LOG=/spark/logs
