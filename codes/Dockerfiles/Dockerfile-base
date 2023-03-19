@@ -12,6 +12,8 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y wget curl vim python3 python3-pip openjdk-8-jdk \
     && pip3 install --upgrade pip \
+    && pip install spacy \
+    && python3 -m spacy download en_core_web_sm \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
