@@ -66,5 +66,24 @@ docker network ls
 docker network inspect spark-project-net
 ```
 ### Apache Spark
+<p>In this section, we will create our Apache Spark cluster without MongoDB. The setup of the MongoDB container will be described in the next section. To begin, we need to create a master node. To do this, run the following command on the host that will act as the master node:</p>
+
+```docker
+docker run -dit --name spark-master --network spark-project-net -p 8080:8080 minabadri/spark-cluster-master:latest
+```
+<p>To ensure that the master has been set up correctly, you can check by navigating to the <PUBLIC_IP_ADDRESS_OF_INSTANCE>:8080</p>
+<p>If you have built the image from scratch and changed the tag, you will need to use your own tag. To confirm the name and version of your image, you can run the following command before starting the master container.</p>
+
+```docker
+docker images
+```
+<p>Then run the following command on workers' host. just remember to change the name of container respectively</p>
+
+```docker
+docker run -dit --name spark-worker1 --network spark-project-net -p 8081:8081 minabadri/spark-cluster-worker:latest
+```
+<p>To confirm that the workers have been added successfully, you can access the master web user interface by visiting the URL <PUBLIC_IP_ADDRESS_OF_INSTANCE>:8080</p>
+![Screenshot](images/master-url.png)
+
 ### MongoDB
 ### Assembling
