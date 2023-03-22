@@ -12,13 +12,11 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y wget curl vim python3 python3-pip openjdk-8-jdk \
     && pip3 install --upgrade pip \
-<<<<<<< HEAD
     && pip install spacy \
     && python3 -m spacy download en_core_web_sm \
-=======
->>>>>>> d741b7c8b5edd3221901e9ca616206cc9412d518
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
 
 # SET JAVA HOME and PATH
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
@@ -32,6 +30,10 @@ RUN wget https://downloads.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK
     && mv spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}/* /spark \
     && rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
     && rm -rf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} 
+
+# Download jar File For Skark 
+RUN wget https://repo1.maven.org/maven2/org/mongodb/mongo-java-driver/3.12.12/mongo-java-driver-3.12.12.jar -O /spark/jars/mongo-java-driver-3.12.12.jar
+RUN wget https://repo1.maven.org/maven2/org/mongodb/spark/mongo-spark-connector_2.12/3.0.2/mongo-spark-connector_2.12-3.0.2.jar -O /spark/jars/mongo-spark-connector_2.12-3.0.2.jar
 
 # Apache Spark ENV
 ENV SPARK_HOME=/spark
@@ -53,8 +55,5 @@ ENV SCALA_HOME=/usr/share/scala
 # Set PySpark ENV
 ENV PYSPARK_PYTHON=python3 \
     PYSPARK_DRIVER_PYTHON=python3 \
-<<<<<<< HEAD
     PYSPARK_DRIVER_PYTHON_OPTS=python3
-=======
-    PYSPARK_DRIVER_PYTHON_OPTS=python3
->>>>>>> d741b7c8b5edd3221901e9ca616206cc9412d518
+
