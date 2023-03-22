@@ -90,16 +90,34 @@ docker run -dit --name spark-worker1 --network spark-project-net -p 8081:8081 mi
 docker run -dit --name spark-jupyter --network spark-project-net -p 8888:8888 -p 4040:4040 -p4041:4041 minabadri/spark-cluster-jupyter:latest
 ```
 <p>Let's check if the application is working properly by navigating to the URL <PUBLIC_IP_ADDRESS_OF_DRIVER>:8888. If you are using the image from my Docker repository, the password is 1989. However, if you want to build your own image, you can change the hash for the password to whatever you prefer.</p>
-<img src"" alt="image">
+<img src"https://github.com/JohanRensfeldt/Group11_Project/blob/main/images/Jupyter.png" alt="image">
 <p>To check if your cluster is functioning properly, you can use the code provided in the example folder named "spark-connection-test.ipynb". This notebook contains code that will verify whether a Spark application is running on the cluster.
 
 Once you run the code, you should be able to see the status of the Spark application in the "master URL". If the cluster is working correctly, the result of the test should be displayed in the notebook.</p>
 
 ### MongoDB
-In final step we will add mongoDB node to docker daemon. Run the following commands in mongoDB's host:
+In the final step, we will add the MongoDB node to the Docker daemon. To do this, please run the following commands on the host of the MongoDB:
 ```docker
 mkdir ~/mongo/data
-docker run -dit -p27017:27017 --name mongoDB -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=1989  --network spark-project-net -v ~/mongo/data:/data/db mongo 
+docker run -dit -p27017:27017 --name mongoDb -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=1989  --network spark-project-net -v ~/mongo/data:/data/db mongo 
 ```
-
+We now need to enter the container and prepare our MongoDB instance for data. To enter the container, use the following command:
+```docker
+docker exec -it mongoDB bash
+``` 
+```docker
+#connect to mongoDB
+mongosh -u admin -p 1989 --authenticationDatabase=admin
+#inside the mongoDB
+use reddit #to create reddit database
+db.createCollection("your_collection_name")
+exit
+```
+Now while inside the container, let's import a small dataset inside the database to test the connection.
+```docker
+curl -s http://files.pushshift.io/reddit/comments/RC_2006-02.zst | zstd --memory=2048MB -d | mongoimport --uri mongodb://admin:1989@77aaa25c0bc3:27017/reddit?authSource=admin --collection smallTest
+```
+After completing the previous step, you can run the "mongoConnectionTest.ipynb" file located in the examples folder to verify that the connection to the MongoDB server has been established successfully. However, please ensure that you modify the name of the MongoDB container in the code if you have used a container name different from "mongoDb".
 ### Assembling
+What we have set up in the previous sections is the following architecture:
+<img src"https://github.com/JohanRensfeldt/Group11_Project/blob/main/images/Swarm%20Network.jpg" alt="image">
