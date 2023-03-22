@@ -90,7 +90,9 @@ docker run -dit --name spark-worker1 --network spark-project-net -p 8081:8081 mi
 docker run -dit --name spark-jupyter --network spark-project-net -p 8888:8888 -p 4040:4040 -p4041:4041 minabadri/spark-cluster-jupyter:latest
 ```
 <p>Let's check if the application is working properly by navigating to the URL <PUBLIC_IP_ADDRESS_OF_DRIVER>:8888. If you are using the image from my Docker repository, the password is 1989. However, if you want to build your own image, you can change the hash for the password to whatever you prefer.</p>
-<img src="https://github.com/JohanRensfeldt/Group11_Project/blob/main/images/Jupyter.png" alt="image">
+  
+<img src="https://github.com/JohanRensfeldt/Group11_Project/blob/main/images/Jupyter.png" alt="jupyterImage">
+
 <p>To check if your cluster is functioning properly, you can use the code provided in the example folder named "spark-connection-test.ipynb". This notebook contains code that will verify whether a Spark application is running on the cluster.
 
 Once you run the code, you should be able to see the status of the Spark application in the "master URL". If the cluster is working correctly, the result of the test should be displayed in the notebook.</p>
@@ -120,4 +122,5 @@ curl -s http://files.pushshift.io/reddit/comments/RC_2006-02.zst | zstd --memory
 After completing the previous step, you can run the "mongoConnectionTest.ipynb" file located in the examples folder to verify that the connection to the MongoDB server has been established successfully. However, please ensure that you modify the name of the MongoDB container in the code if you have used a container name different from "mongoDb".
 ### Assembling
 What we have set up in the previous sections is the following architecture:
-<img src="https://github.com/JohanRensfeldt/Group11_Project/blob/main/images/Swarm%20Network.jpg" alt="image">
+
+<img src="https://github.com/JohanRensfeldt/Group11_Project/blob/main/images/Swarm%20Network.jpg" alt="architectureImage">
