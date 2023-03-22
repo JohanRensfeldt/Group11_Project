@@ -86,6 +86,7 @@ docker run -dit --name spark-worker1 --network spark-project-net -p 8081:8081 mi
 <img src="https://github.com/JohanRensfeldt/Group11_Project/blob/main/images/master-url.png" alt="image">
 
 <p>In this step we are going to create the driver node by runnig it's container:</p>
+
 ```docker
 docker run -dit --name spark-jupyter --network spark-project-net -p 8888:8888 -p 4040:4040 -p4041:4041 minabadri/spark-cluster-jupyter:latest
 ```
