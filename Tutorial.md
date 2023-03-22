@@ -10,7 +10,7 @@ Below is a list of the steps we will be following, as indicated in the table of 
   - [Pulling images from repository](#Pulling-images-from-repository)
   - [Building images](#Building-images)
 - [Docker networking](#docker-networking)
-- [Apache Spark](#Apache-Spark)
+- [Apache Spark](#apache-spark)
 - [MongoDB](#Mongodb)
 - [Assembling](#assembling)
 
@@ -83,7 +83,23 @@ docker images
 docker run -dit --name spark-worker1 --network spark-project-net -p 8081:8081 minabadri/spark-cluster-worker:latest
 ```
 <p>To confirm that the workers have been added successfully, you can access the master web user interface by visiting the URL <PUBLIC_IP_ADDRESS_OF_INSTANCE>:8080</p>
-![Screenshot](images/master-url.png)
+<img src="https://github.com/JohanRensfeldt/Group11_Project/blob/main/images/master-url.png" alt="image">
+
+<p>In this step we are going to create the driver node by runnig it's container:</p>
+```docker
+docker run -dit --name spark-jupyter --network spark-project-net -p 8888:8888 -p 4040:4040 -p4041:4041 minabadri/spark-cluster-jupyter:latest
+```
+<p>Let's check if the application is working properly by navigating to the URL <PUBLIC_IP_ADDRESS_OF_DRIVER>:8888. If you are using the image from my Docker repository, the password is 1989. However, if you want to build your own image, you can change the hash for the password to whatever you prefer.</p>
+<img src"" alt="image">
+<p>To check if your cluster is functioning properly, you can use the code provided in the example folder named "spark-connection-test.ipynb". This notebook contains code that will verify whether a Spark application is running on the cluster.
+
+Once you run the code, you should be able to see the status of the Spark application in the "master URL". If the cluster is working correctly, the result of the test should be displayed in the notebook.</p>
 
 ### MongoDB
+In final step we will add mongoDB node to docker daemon. Run the following commands in mongoDB's host:
+```docker
+mkdir ~/mongo/data
+docker run -dit -p27017:27017 --name mongoDB -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=1989  --network spark-project-net -v ~/mongo/data:/data/db mongo 
+```
+
 ### Assembling
