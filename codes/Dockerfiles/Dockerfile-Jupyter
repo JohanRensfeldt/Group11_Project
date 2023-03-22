@@ -18,16 +18,11 @@ RUN apt-get update \
     && apt-get install -y jupyter \
     && pip install pyspark \
     && pip install --upgrade ipywidgets \
-    && python3 -m spacy download en_core_web_sm \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy examples python files into container
-<<<<<<< HEAD
-#RUN mkdir /home/example
-#COPY ./example-files/* /home/example/
 
-=======
 
 #RUN mkdir /home/example
 #COPY ./example-files/* /home/example/
@@ -38,9 +33,6 @@ RUN apt-get update \
 COPY ./files/log4j.properties $SPARK_HOME/conf/
 COPY ./files/spark-defaults.conf $SPARK_HOME/conf/
 
-# Download jar File For Skark 
-RUN wget https://repo1.maven.org/maven2/org/mongodb/mongo-java-driver/3.12.12/mongo-java-driver-3.12.12.jar /spark/jars
-RUN wget https://repo1.maven.org/maven2/org/mongodb/spark/mongo-spark-connector_2.12/3.0.2/mongo-spark-connector_2.12-3.0.2.jar /spark/jars
 
 # Add Jupyter User
 # RUN useradd -ms /bin/bash jupyter

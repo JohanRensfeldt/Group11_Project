@@ -1,15 +1,10 @@
-<<<<<<< HEAD
-FROM minabadri/spark-cluster-base:latest
-
-=======
 
 FROM minabadri/spark-cluster-base:latest
 
 
->>>>>>> d741b7c8b5edd3221901e9ca616206cc9412d518
 ENV MASTER_CONTAINER_NAME=spark-master
-ENV CORES=1
-ENV MEMORY=2G
+ENV CORES=3
+ENV MEMORY=6G
 ENV SPARK_WORKER_WEBUI_PORT=8081
 ENV SPARK_WORKER_LOG=/spark/logs
 
